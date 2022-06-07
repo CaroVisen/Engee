@@ -1,0 +1,29 @@
+.titulo {
+    background-color: #F5F5F5; 
+    color: #1F1F1F; 
+    padding: 1%; 
+    border-bottom: 2px solid #E6E6E6;
+}
+
+p{
+    margin: 0;
+}
+
+label{
+    font-weight: 600;
+}
+
+.botonIngresar{
+    width: 10%;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .botonIngresar{
+        width: 100%;
+    }
+
+    .col-md{
+        margin-bottom: 5%;
+    }
+}

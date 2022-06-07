@@ -1,0 +1,112 @@
+<div class="container" style="margin-top: 2%; margin-bottom: 5%;">
+    <form [formGroup]="cargaingreso" (ngSubmit)="cargarIngreso($event)">
+        <div class="titulo">
+            <h6 style="padding: 0; margin: 0;">Datos de la visita</h6>
+        </div>
+        <div style="margin: 2% 3% 5% 3%;">
+            <div class="row" style="margin-bottom: 3%;">
+                <div class="col-md">
+                    <label for="buscarnombre" class="form-label" style="display: block;">DNI</label>
+                    <input type="number" class="form-control" id="buscarnombre" placeholder="12345678" style="width: 50%; display: inline;" formControlName="dni"/>
+                    <button type="button" class="btn btn-warning" style="margin-left: 10%; color: #615121; font-weight: bold;" (click)="buscarNombre()" >Consultar</button>
+                </div>
+                <div class="col-md">
+                    <label for="exampleFormControlInput1" class="form-label">Nombre y apellido</label>
+                    <p>{{this.nombre}}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="row" style="margin-bottom: 3%;">
+                <div class="col-md">
+                    <label for="tarjeta" class="form-label">
+                        Nro. de tarjeta de ingreso
+                    </label>
+                    <input type="number" class="form-control" placeholder="Ingrese número" style="width: 75%;" formControlName="tarjeta" >
+                </div>
+                <div class="col-md">
+                    <label for="fechaIngreso" class="form-label">
+                        Fecha de ingreso
+                    </label>
+                    <p>
+                        {{this.cargaingreso.value.fecha | date:'shortDate'}}
+                    </p>
+                </div>
+                <div class="col-md">
+                    <label for="horaIngreso" class="form-label">
+                        Hora de Ingreso
+                    </label>
+                    <p>
+                        {{this.cargaingreso.value.fecha | date:'shortTime'}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md">
+                    <label for="sector" class="form-label">
+                        Sector
+                    </label>
+                    <select class="form-select" id="getvisita" formControlName="sector" (change)="getVisita()">
+                        <option *ngFor="let sector of sectores" id="sector" value={{sector}}>{{sector}}</option>
+                    </select>
+                </div>
+                <div class="col-md">
+                    <label for="visita" class="form-label">
+                        Visita a
+                    </label>
+                    <select class="form-select" formControlName="visita">
+                        <option *ngFor="let visita of visita" id="visita" value="{{visita.apellido}} {{visita.nombre}}">{{visita.nombre}} {{visita.apellido}}</option>
+                      </select>
+                </div>
+            </div>
+            <div class="row" style="display: flex; justify-content: end; margin-top: 2%;">
+                <button type="submit" class="btn btn-warning botonIngresar" style="color: #615121; font-weight: bold;">Ingresar</button>
+            </div>
+    </div>
+    </form>
+    <div>
+        <div class="titulo">
+            <h6 style="padding: 0; margin: 0;">Historia de la visita</h6>
+        </div>
+
+        <table class="table" style="margin-top: 5%;">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora de Ingreso</th>
+                <th scope="col">Visito a</th>
+                <th scope="col">Borrar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let vis of visitas">
+                <th scope="row">{{vis.tarjeta}}</th>
+                <td>{{vis.fecha |  date:'shortDate'}}</td>
+                <td>{{vis.fecha | date:'shortTime'}}</td>
+                <td>{{vis.visita}}</td>
+                <td><button style="border: none; background-color: transparent; color:red;" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="setVisita(vis)"><i class="fa-regular fa-trash"></i></button></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Esta seguro que desea eliminar la visita?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close" (click)="deleteVisita()">Borrar</button>
+        </div>
+        </div>
+    </div>
+    </div>
